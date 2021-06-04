@@ -29,3 +29,30 @@ def create(request):
         return HttpResponseRedirect(reverse('customers:details'))
     else:
         return render(request, 'customers/create.html')
+
+
+def edit(request, customer_id):
+    customer = Customer.objects.get(id=customer_id)
+    if request.method == 'POST':
+        customer.name = request.POST.get('name')
+        customer.alter_ego = request.POST.get('alter_ego')
+        customer.primary_ability = request.POST.get('primary_ability')
+        customer.secondary_ability = request.POST.get('secondary_ability')
+        customer.catchphrase = request.POST.get('catchphrase')
+        customer.save()
+        return HttpResponseRedirect(reverse('customer:index'))
+    else:
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customer/edit.html', context)
+
+
+def delete(request, customer_id):
+    customer = Customer.objects.get(id=customer_id)
+    customer.delete()
+    customer = customer.objects.all()
+    context = {
+        'customer': customer
+    }
+    return render(request, 'customer/index.html', context)
