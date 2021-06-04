@@ -6,15 +6,23 @@
 {% block header %} Create Account {% endblock %}
 
 {% block content %}
-    Hello Customer {{ user.username }}!
+<h2>Hello {{ user.username }}!</h2>
 <div class="container">
 <form action="{% url 'customers:create' %}" method="post">
     {% csrf_token %}
     Name: <input type="text" name="name" id="name"><br>
     Address: <input type="text" name="address" id="address"><br>
     Zip Code: <input type="text" name="zip_code" id="zip_code"><br>
-    Pickup Day: <input type="text" name="pickup_day" id="pickup_day"><br>
-    One-Time Pickup: <input type="text" name="one_time_pickup" id="one_time_pickup"><br>
+    <label>Pickup Day:</label>
+    <select name="pickup_day">
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+    </select><br>
+    One-Time Pickup (YYYY-MM-DD): <input type="text" name="one_time_pickup" id="one_time_pickup" value="2021-01-01"><br>
     <input type="submit" value="Submit">
 </form>
 </div>

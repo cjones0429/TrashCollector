@@ -8,7 +8,14 @@
 {% if user.is_authenticated %}
   {% for group in user.groups.all%}
     {% if group.name == "Customers" %}
-    <p>Customer Navbar</p>
+  <div class="container">
+    <header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><h2><a href="{% url 'customers:index' %}" class="nav-link text-dark">Home</a> </h2></li>
+        <li class="nav-item"><h2><a href="{% url 'customers:create' %}" class="nav-link text-dark">Create Account</a> </h2></li>
+    </ul>
+    </header>
+  </div>
     {% elif group.name == "Employees" %}
     <p>Employee Navbar</p>
     {% endif %}
