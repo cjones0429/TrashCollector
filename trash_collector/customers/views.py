@@ -24,7 +24,11 @@ def create(request):
         pickup_day = request.POST.get('pickup_day')
         zip_code = request.POST.get('zip_code')
         one_time_pickup = request.POST.get('one_time_pickup')
-        new_customer = Customer(name=name, address=address, zip_code=zip_code, pickup_day=pickup_day, one_time_pickup=one_time_pickup)
+        new_customer = Customer(name=name,
+                                address=address,
+                                zip_code=zip_code,
+                                pickup_day=pickup_day,
+                                one_time_pickup=one_time_pickup)
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:details'))
     else:
@@ -32,7 +36,8 @@ def create(request):
 
 
 def edit(request, customer_id):
-    customer = Customer.objects.get(id=customer_id)
+    user = request.user
+    customer = Customer.objects.get(user=user.id)
     if request.method == 'POST':
         customer.name = request.POST.get('name')
         customer.alter_ego = request.POST.get('alter_ego')
@@ -49,7 +54,8 @@ def edit(request, customer_id):
 
 
 def delete(request, customer_id):
-    customer = Customer.objects.get(id=customer_id)
+    user = request.user
+    customer = Customer.objects.get(user=user.id)
     customer.delete()
     customer = customer.objects.all()
     context = {
@@ -62,7 +68,7 @@ def pickup_day(request):
     user = request.user
     customer = Customer.objects.get(user=user.id)
     if request.method == 'POST':
-        # customer.(whatever we call it - pickupdate?) = request.POST.get('name')
+        customer.(whatever we call it - pickupdate?)** = request.POST.get('name')
         customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
@@ -73,8 +79,17 @@ def one_time_pickup(request):
     user = request.user
     customer = Customer.objects.get(user=user.id)
     if request.method == 'POST':
-        customer.one_time_pickup = request.Post.get('pickup')
+        customer.one_time_pickup = request.Post.get('One-Time Pickup')
         customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/one_time_pickup')
+
+
+def account_info_details(request):
+    user = request.user
+    customer = Customer.objects.get(id=user.id)
+    context = {
+        'customer': customer
+    }
+    return render(request, 'customer/account_info_details.html', context)
