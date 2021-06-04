@@ -56,3 +56,25 @@ def delete(request, customer_id):
         'customer': customer
     }
     return render(request, 'customer/index.html', context)
+
+
+def pickup_day(request):
+    user = request.user
+    customer = Customer.objects.get(user=user.id)
+    if request.method == 'POST':
+        # customer.(whatever we call it - pickupdate?) = request.POST.get('name')
+        customer.save()
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        return render(request, 'customers/pickup_day')
+
+
+def one_time_pickup(request):
+    user = request.user
+    customer = Customer.objects.get(user=user.id)
+    if request.method == 'POST':
+        customer.one_time_pickup = request.Post.get('pickup')
+        customer.save()
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        return render(request, 'customers/one_time_pickup')
