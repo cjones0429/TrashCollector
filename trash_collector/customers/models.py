@@ -6,7 +6,7 @@ from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=50, default=("temp"))
-    pickup_day = models.CharField(max_length=50, default="Monday")
+    pickup_day = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, null=True)
     zip_code = models.CharField(max_length=50, null=True)
     account_balance = models.IntegerField(default=0)
