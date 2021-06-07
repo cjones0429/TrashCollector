@@ -10,7 +10,8 @@ urlpatterns = [
     path('create/', views.create, name="create"),
     path('account_info_details/', views.account_info_details, name="account_info_details"),
     path('pickup_day/', views.pickup_day, name="pickup_day"),
-    path('one_time_pickup/', views.one_time_pickup, name = "one_time_pickup"),
+    path('one_time_pickup/', views.one_time_pickup, name="one_time_pickup"),
     path('suspend_pickup/', views.suspend_pickup, name="suspend_pickup"),
+    path('edit/', views.edit, name="edit")
 
 ]

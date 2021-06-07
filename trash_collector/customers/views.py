@@ -28,22 +28,23 @@ def create(request):
                                 address=address,
                                 zip_code=zip_code,
                                 pickup_day=pickup_day,
-                                one_time_pickup=one_time_pickup)
+                                one_time_pickup=one_time_pickup,
+                                user=request.user)
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:details'))
     else:
         return render(request, 'customers/create.html')
 
 
-def edit(request, customer_id):
+def edit(request):
     user = request.user
-    customer = Customer.objects.get(user=user.id)
+    customer = Customer.objects.get(user=user)
     if request.method == 'POST':
         customer.name = request.POST.get('name')
-        customer.alter_ego = request.POST.get('alter_ego')
-        customer.primary_ability = request.POST.get('primary_ability')
-        customer.secondary_ability = request.POST.get('secondary_ability')
-        customer.catchphrase = request.POST.get('catchphrase')
+        customer.address = request.POST.get('address')
+        customer.zip_code = request.POST.get('zip_code')
+        customer.pickup_day = request.POST.get('pickup_day')
+        customer.one_time_pickup = request.POST.get('one_time_pickup')
         customer.save()
         return HttpResponseRedirect(reverse('customer:index'))
     else:
@@ -53,9 +54,9 @@ def edit(request, customer_id):
         return render(request, 'customer/edit.html', context)
 
 
-def delete(request, customer_id):
+def delete(request):
     user = request.user
-    customer = Customer.objects.get(user=user.id)
+    customer = Customer.objects.get(user=user)
     customer.delete()
     customer = customer.objects.all()
     context = {
@@ -66,9 +67,9 @@ def delete(request, customer_id):
 
 def pickup_day(request):
     user = request.user
-    customer = Customer.objects.get(user=user.id)
+    customer = Customer.objects.get(user=user)
     if request.method == 'POST':
-        customer.(whatever we call it - pickupdate?)** = request.POST.get('name')
+        customer.one_time_pickup = request.POST.get('name')
         customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
@@ -77,7 +78,7 @@ def pickup_day(request):
 
 def one_time_pickup(request):
     user = request.user
-    customer = Customer.objects.get(user=user.id)
+    customer = Customer.objects.get(user=user)
     if request.method == 'POST':
         customer.one_time_pickup = request.Post.get('One-Time Pickup')
         customer.save()
@@ -88,8 +89,11 @@ def one_time_pickup(request):
 
 def account_info_details(request):
     user = request.user
-    customer = Customer.objects.get(id=user.id)
-    context = {
-        'customer': customer
-    }
-    return render(request, 'customer/account_info_details.html', context)
+    try:
+        customer = Customer.objects.get(user=user)
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customer/account_info_details.html', context)
+    except:
+        create(request)
