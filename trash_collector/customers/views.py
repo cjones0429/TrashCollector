@@ -37,8 +37,7 @@ def create(request):
 
 
 def edit(request):
-    user = request.user
-    customer = Customer.objects.get(user=user)
+    customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
         customer.name = request.POST.get('name')
         customer.address = request.POST.get('address')
@@ -55,8 +54,7 @@ def edit(request):
 
 
 def delete(request):
-    user = request.user
-    customer = Customer.objects.get(user=user)
+    customer = Customer.objects.get(user=request.user)
     customer.delete()
     customer = customer.objects.all()
     context = {
@@ -66,10 +64,9 @@ def delete(request):
 
 
 def pickup_day(request):
-    user = request.user
-    customer = Customer.objects.get(user=user)
+    customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
-        customer.one_time_pickup = request.POST.get('name')
+        customer.one_time_pickup = request.POST.get('one_time_pickup')
         customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
@@ -77,8 +74,7 @@ def pickup_day(request):
 
 
 def one_time_pickup(request):
-    user = request.user
-    customer = Customer.objects.get(user=user)
+    customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
         customer.one_time_pickup = request.Post.get('One-Time Pickup')
         customer.save()
@@ -88,12 +84,22 @@ def one_time_pickup(request):
 
 
 def account_info_details(request):
-    user = request.user
     try:
-        customer = Customer.objects.get(user=user)
+        customer = Customer.objects.get(user=request.user)
         context = {
             'customer': customer
         }
         return render(request, 'customer/account_info_details.html', context)
     except:
         create(request)
+
+
+def suspend_pickup(request):
+    customer = Customer.objects.get(user=request.user)
+    if request.method == 'POST':
+        customer.suspension_start = request.Post.get('suspend_start')
+        customer.suspension_end = request.Post.get('suspend_end')
+        customer.save()
+    else:
+        return render(request, 'customer/suspend_pickup.html')
+
