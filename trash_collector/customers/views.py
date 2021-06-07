@@ -13,8 +13,15 @@ def index(request):
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
+    try:
+        logged_in_customer = Customer.objects.get(user=user)
+        context = {
+            'logged_in_customer': logged_in_customer
+        }
+    except:
+        return render(request, 'customers/create.html')
     print(user)
-    return render(request, 'customers/index.html')
+    return render(request, 'customers/index.html', context)
 
 
 def create(request):
@@ -66,21 +73,27 @@ def delete(request):
 def pickup_day(request):
     customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
-        customer.one_time_pickup = request.POST.get('one_time_pickup')
+        customer.pickup_day = request.POST.get('pickup_day')
         customer.save()
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('customers:account_info_details'))
     else:
-        return render(request, 'customers/pickup_day')
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customers/pickup_day.html', context)
 
 
 def one_time_pickup(request):
     customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
-        customer.one_time_pickup = request.Post.get('One-Time Pickup')
+        customer.one_time_pickup = request.POST.get('one_time_pickup')
         customer.save()
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('customers:account_info_details'))
     else:
-        return render(request, 'customers/one_time_pickup')
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customers/one_time_pickup.html', context)
 
 
 def account_info_details(request):
@@ -97,9 +110,16 @@ def account_info_details(request):
 def suspend_pickup(request):
     customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
-        customer.suspension_start = request.Post.get('suspend_start')
-        customer.suspension_end = request.Post.get('suspend_end')
+        customer.suspension_start = request.POST.get('suspension_start')
+        customer.suspension_end = request.POST.get('suspension_end')
         customer.save()
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customers/account_info_details.html', context)
     else:
-        return render(request, 'customers/suspend_pickup.html')
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customers/suspend_pickup.html', context)
 
