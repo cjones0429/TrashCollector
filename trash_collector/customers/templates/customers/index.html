@@ -8,7 +8,7 @@
 {% block content %}
   {% if user.is_authenticated %}
     <h1>Hello Customer {{ user.username }}!</h1>
-    <p><a href="{% url 'customer/account_info_details' %}">Log Out</a></p>
+    <p><a href="{% url 'customers:account_info_details' %}">Account Info</a></p>
   {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

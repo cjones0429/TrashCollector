@@ -31,7 +31,7 @@ def create(request):
                                 one_time_pickup=one_time_pickup,
                                 user=request.user)
         new_customer.save()
-        return HttpResponseRedirect(reverse('customers:details'))
+        return HttpResponseRedirect(reverse('customers:account_info_details'))
     else:
         return render(request, 'customers/create.html')
 
@@ -45,12 +45,12 @@ def edit(request):
         customer.pickup_day = request.POST.get('pickup_day')
         customer.one_time_pickup = request.POST.get('one_time_pickup')
         customer.save()
-        return HttpResponseRedirect(reverse('customer:index'))
+        return HttpResponseRedirect(reverse('customers:account_info_details'))
     else:
         context = {
             'customer': customer
         }
-        return render(request, 'customer/edit.html', context)
+        return render(request, 'customers/edit.html', context)
 
 
 def delete(request):
@@ -60,7 +60,7 @@ def delete(request):
     context = {
         'customer': customer
     }
-    return render(request, 'customer/index.html', context)
+    return render(request, 'customers/index.html', context)
 
 
 def pickup_day(request):
@@ -89,9 +89,9 @@ def account_info_details(request):
         context = {
             'customer': customer
         }
-        return render(request, 'customer/account_info_details.html', context)
+        return render(request, 'customers/account_info_details.html', context)
     except:
-        create(request)
+        return HttpResponseRedirect(reverse('customers:create'))
 
 
 def suspend_pickup(request):
@@ -101,5 +101,5 @@ def suspend_pickup(request):
         customer.suspension_end = request.Post.get('suspend_end')
         customer.save()
     else:
-        return render(request, 'customer/suspend_pickup.html')
+        return render(request, 'customers/suspend_pickup.html')
 

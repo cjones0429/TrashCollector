@@ -14,7 +14,7 @@
     <li><h2> Pickup Day - {{customer.pickup_day}}</h2></li>
     <li><h2> One Time Pickup - {{customer.one_time_pickup}}</h2></li>
     <li><h2> Requested Suspension - [{{customer.suspension_start}} - {{customer.suspension_end}}]</h2></li>
-    <li><h2> Account Balance - {{customer.account_balance}}</h2></li>
+    <li><h2> Account Balance - ${{customer.account_balance}}</h2></li>
 </ul></div>
 <div>
     <p><a href="{% url 'customers:edit' %}">Click to edit details</a></p>

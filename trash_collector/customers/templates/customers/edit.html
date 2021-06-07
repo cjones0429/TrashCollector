@@ -11,8 +11,8 @@
 <form action="{% url 'customers:edit' %}" method="post">
     {% csrf_token %}
     Name: <input type="text" name="name" id="name" value="{{customer.name}}"><br>
-    Address: <input type="text" name="address" id="address" value="customer.address}}"><br>
-    Zip Code: <input type="text" name="zip_code" id="zip_code" value="customer.{{zip_code}}"><br>
+    Address: <input type="text" name="address" id="address" value="{{customer.address}}"><br>
+    Zip Code: <input type="text" name="zip_code" id="zip_code" value="{{customer.zip_code}}"><br>
     <label>Pickup Day:</label>
     <select name="pickup_day">
         <option value="monday">Monday</option>
