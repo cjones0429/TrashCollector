@@ -42,4 +42,4 @@ def confirm_pickups(request, customer_id):
         customer.save()
         return render(request, 'employees/confirm.html')
     else:
-        return render(request, 'employees/today_customers.html')
+        return render(request, 'employees/customers_today.html')
