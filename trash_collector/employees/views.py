@@ -23,7 +23,7 @@ def index(request):
         logged_in_employee = Employee.objects.get(user=user)
     except:
         return render(request, 'employees/create.html')
-    employee_customers = customers.objects.filter(Q(zip_code=logged_in_employee.zip_code, pickup_day=calendar.day_name[date.today().weekday()]) | Q(~Q(pickup_day=calendar.day_name[date.today().weekday()]), one_time_pickup=date.today())).exclude(Q(suspension_start__lte=date.today()) | Q(suspension_end__gte=date.today()))
+    employee_customers = customers.objects.filter(Q(zip_code=logged_in_employee.zip_code, pickup_day=calendar.day_name[date.today().weekday()]) | Q(~Q(pickup_day=calendar.day_name[date.today().weekday()]), one_time_pickup=date.today())).exclude(Q((Q(suspension_start__lte=date.today()) & Q(suspension_end__gte=date.today())) & ~Q(one_time_pickup=date.today())))
     context = {
         'employee_customers': employee_customers,
         'logged_in_employee': logged_in_employee
