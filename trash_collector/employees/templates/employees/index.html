@@ -9,6 +9,7 @@
   {% for customer in employee_customers %}
     <p>{{customer.name}} {{customer.address}} {{customer.zip_code}} {{customer.pickup_day}}</p>
   {% endfor %}
+    <a href="">Charge Customers</a>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
