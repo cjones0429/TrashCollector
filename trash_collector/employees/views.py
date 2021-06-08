@@ -2,6 +2,7 @@ from django.apps import apps
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Employee
+
 from django.urls import reverse
 
 
@@ -52,8 +53,4 @@ def confirm_pickups(request, customer_id):
 
 
 def filter_pickups(request):
-    customers = apps.get_model('customers.Customer')
-    if request.method == 'POST':
-        employee = Employee.objects.get(user=request.user)
-        pass
-
+    pass
