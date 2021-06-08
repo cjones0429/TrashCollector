@@ -52,4 +52,8 @@ def confirm_pickups(request, customer_id):
 
 
 def filter_pickups(request):
-    pass
+    customers = apps.get_model('customers.Customer')
+    if request.method == 'POST':
+        employee = Employee.objects.get(user=request.user)
+        pass
+
