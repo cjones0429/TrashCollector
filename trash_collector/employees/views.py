@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .models import Employee
 from datetime import date
 import calendar
+from django.db.models import Q
 from django.urls import reverse
 
 
@@ -22,8 +23,7 @@ def index(request):
         logged_in_employee = Employee.objects.get(user=user)
     except:
         return render(request, 'employees/create.html')
-    employee_customers = customers.objects.filter(zip_code=logged_in_employee.zip_code)
-    day_of_week = date.today()
+    employee_customers = customers.objects.filter(Q(zip_code=logged_in_employee.zip_code, pickup_day=calendar.day_name[date.today().weekday()]) | Q(~Q(pickup_day=calendar.day_name[date.today().weekday()]), one_time_pickup=date.today())).exclude(Q(suspension_start__lte=date.today()) | Q(suspension_end__gte=date.today()))
     context = {
         'employee_customers': employee_customers,
         'logged_in_employee': logged_in_employee
