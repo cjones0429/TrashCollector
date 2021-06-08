@@ -6,8 +6,8 @@ from . import views
 
 app_name = "employees"
 urlpatterns = [
-    path('', views.index, name="index")
-    path('filter_pickups/', views.filter_pickups, name='filter_pickups'),
+    path('', views.index, name="index"),
+    path('filter_customers_in_pickup_area/', views.filter_customers_in_pickup_area, name='filter_customers_in_pickup_area'),
     path('confirm_pickup/<int:customer_id/', views.confirm_pickup, name='confirm_pickup'),
     path('create/', views.create, name='create')
 ]

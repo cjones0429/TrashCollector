@@ -43,3 +43,10 @@ def confirm_pickups(request, customer_id):
         return render(request, 'employees/confirm.html')
     else:
         return render(request, 'employees/customers_today.html')
+
+
+def filter_customers_in_pickup_area(request):
+    Customer = apps.get_model('customers.Customer')
+    if request.method == 'POST':
+        employee = Employee.objects.get(user=user)
+
