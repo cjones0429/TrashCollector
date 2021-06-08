@@ -18,7 +18,14 @@
     </header>
   </div>
     {% elif group.name == "Employees" %}
-    <p>Employee Navbar</p>
+  <div class="container">
+    <header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><h2><a href="{% url 'employees:index' %}" class="nav-link text-dark">Home</a> </h2></li>
+        <li class="nav-item"><h2><a href="{% url 'employees:filter_pickups' %}" class="nav-link text-dark">Change Pickup Day</a> </h2></li>
+    </ul>
+    </header>
+  </div>
     {% endif %}
   {% endfor %}
   <p><a href="{% url 'logout' %}">Log Out</a></p>

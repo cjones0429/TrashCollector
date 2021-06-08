@@ -2,6 +2,8 @@ from django.apps import apps
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Employee
+from datetime import date
+import calendar
 from django.urls import reverse
 
 
@@ -20,7 +22,8 @@ def index(request):
         logged_in_employee = Employee.objects.get(user=user)
     except:
         return render(request, 'employees/create.html')
-    employee_customers = customers(zip_code=logged_in_employee.zip_code)
+    employee_customers = customers.objects.filter(zip_code=logged_in_employee.zip_code)
+    day_of_week = date.today()
     context = {
         'employee_customers': employee_customers,
         'logged_in_employee': logged_in_employee
@@ -53,7 +56,19 @@ def confirm_pickups(request, customer_id):
 
 def filter_pickups(request):
     customers = apps.get_model('customers.Customer')
+    employee = Employee.objects.get(user=request.user)
+    employee_customers = customers.objects.filter(zip_code=employee.zip_code)
     if request.method == 'POST':
-        employee = Employee.objects.get(user=request.user)
-        pass
+        filtered_customers = customers.objects.filter(zip_code=employee.zip_code).filter(pickup_day=request.POST.get('pickup_day'))
+        context = {
+            'customers': filtered_customers,
+            'employee': employee
+        }
+        return render(request, 'employees/filter_pickups.html', context)
+    else:
+        context = {
+            'customers': employee_customers
+        }
+        return render(request, 'employees/filter_pickups.html', context)
+
 
