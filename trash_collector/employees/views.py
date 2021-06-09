@@ -43,15 +43,14 @@ def create(request):
 
 
 def confirm_pickups(request, customer_id):
-    if request.method == 'GET':
+    if request.method == 'POST':
         customers = apps.get_model('customers.Customer')
         customer = customers.objects.get(id=customer_id)
         customer.account_balance += 15
-        customer.confirm_pickup = True
         customer.save()
-        return render(request, 'employees/confirm.html')
+        return HttpResponseRedirect(reverse('employees:index'))
     else:
-        return render(request, 'employees/customers_today.html')
+        return render(request, 'employees/index.html')
 
 
 def filter_pickups(request):

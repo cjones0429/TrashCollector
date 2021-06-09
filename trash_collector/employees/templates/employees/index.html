@@ -7,9 +7,15 @@
     <h1>Hello Employee, your username is {{ user.username }}!</h1>
     <h1>Your name is {{logged_in_employee.name}}</h1>
   {% for customer in employee_customers %}
-    <p>{{customer.name}} {{customer.address}} {{customer.zip_code}} {{customer.pickup_day}}</p>
+    <p>{{customer.name}} {{customer.address}} {{customer.zip_code}} {{customer.pickup_day}} ${{customer.account_balance}}
+<div class="container">
+<form action="{% url 'employees:confirm_pickups' customer.id %}" method="post">
+    {% csrf_token %}
+    <p>Confirm pickup for {{customer.name}}</p>
+    <input type="submit" value="Submit">
+</form>
+</div>
   {% endfor %}
-    <a href="">Charge Customers</a>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
