@@ -1,13 +1,10 @@
 from django.apps import apps
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import Employee
 from datetime import date
 import calendar
 from django.db.models import Q
-from django.urls import reverse
-
-
 from django.urls import reverse
 
 # Create your views here.
@@ -23,7 +20,8 @@ def index(request):
         logged_in_employee = Employee.objects.get(user=user)
     except:
         return render(request, 'employees/create.html')
-    employee_customers = customers.objects.filter(Q(zip_code=logged_in_employee.zip_code, pickup_day=calendar.day_name[date.today().weekday()]) | Q(~Q(pickup_day=calendar.day_name[date.today().weekday()]), one_time_pickup=date.today())).exclude(Q((Q(suspension_start__lte=date.today()) & Q(suspension_end__gte=date.today())) & ~Q(one_time_pickup=date.today())))
+    employee_customers = customers.objects.filter(Q(zip_code=logged_in_employee.zip_code,
+                                                    pickup_day=calendar.day_name[date.today().weekday()]) | Q(~Q(pickup_day=calendar.day_name[date.today().weekday()]), one_time_pickup=date.today())).exclude(Q((Q(suspension_start__lte=date.today()) & Q(suspension_end__gte=date.today())) & ~Q(one_time_pickup=date.today())))
     context = {
         'employee_customers': employee_customers,
         'logged_in_employee': logged_in_employee
@@ -69,5 +67,3 @@ def filter_pickups(request):
             'customers': employee_customers
         }
         return render(request, 'employees/filter_pickups.html', context)
-
-
