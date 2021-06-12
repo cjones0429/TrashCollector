@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'customers',
-    'employees'
+    'employees',
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,7 @@ try:
     from trash_collector.local_settings import *
 except ImportError:
     pass
+
+STRIPE_PUBLIC_KEY = ""
+STRIPE_SECRET_KEY = ""
+STRIPE_WEBHOOK_SECRET = ""

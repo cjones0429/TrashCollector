@@ -2,7 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Customer
 from django.urls import reverse
+
 # Create your views here.
+
 
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
@@ -122,4 +124,5 @@ def suspend_pickup(request):
             'customer': customer
         }
         return render(request, 'customers/suspend_pickup.html', context)
+
 
