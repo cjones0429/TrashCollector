@@ -17,6 +17,7 @@
         <li class="nav-item"><h2><a href="{% url 'customers:suspend_pickup' %}" class="nav-link text-dark">Suspend Pickup</a> </h2></li>
     </ul>
     </header>
+
   </div>
     {% elif group.name == "Employees" %}
   <div class="container">
@@ -29,7 +30,11 @@
   </div>
     {% endif %}
   {% endfor %}
-  <p><a class="btn btn-primary" href="{% url 'logout' %}" role="button">Log Out</a></p>
+
+  <div style="position: absolute; top: 0; right: 0; width: 100px; text-align:right;">
+    <p><a class="btn btn-primary" href="{% url 'logout' %}" role="button">Log Out</a></p>
+  </div>
+
 {% endif %}
   <main>
     <h1>{% block header %} {% endblock %}</h1>

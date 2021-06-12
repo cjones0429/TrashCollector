@@ -7,12 +7,16 @@
 
 {% block content %}
 <h2>Hello {{ user.username }}!</h2>
-<div class="container">
+<br>
+<div class="container text-center">
 <form action="{% url 'customers:create' %}" method="post">
     {% csrf_token %}
     Name: <input type="text" name="name" id="name"><br>
+    <br>
     Address: <input type="text" name="address" id="address"><br>
+    <br>
     Zip Code: <input type="text" name="zip_code" id="zip_code"><br>
+    <br>
     <label>Pickup Day:</label>
     <select name="pickup_day">
         <option value="Monday">Monday</option>
@@ -22,6 +26,7 @@
         <option value="Friday">Friday</option>
         <option value="Saturday">Saturday</option>
     </select><br>
+    <br>
     One-Time Pickup (YYYY-MM-DD): <input type="text" name="one_time_pickup" id="one_time_pickup" value="2021-01-01"><br>
     <input type="submit" value="Submit">
 </form>

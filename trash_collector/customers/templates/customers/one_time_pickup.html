@@ -6,7 +6,9 @@
 {% block header %} One Time Pickup {% endblock %}
 
 {% block content %}
-<h2>Hello {{ user.username }}! Please enter the date you want a pickup added.</h2>
+<h2>Hello {{ user.username }}!</h2>
+<div class ="container text-center">
+<h2>Please enter the date you want a pickup added.</h2>
 <div class="container">
 <form action="{% url 'customers:one_time_pickup' %}" method="post">
     {% csrf_token %}

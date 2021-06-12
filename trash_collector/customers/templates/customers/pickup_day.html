@@ -6,7 +6,10 @@
 {% block header %} Change Pickup Day {% endblock %}
 
 {% block content %}
-<h2>Hello {{ user.username }}! You're current pickup day is {{customer.pickup_day}}.</h2>
+<h2>Hello {{ user.username }}!</h2>
+<br>
+<div class="container text-center">
+<h4>Your current pickup day is {{customer.pickup_day}}. To change this, select a new day and press submit.</h4>
 <div class="container">
 <form action="{% url 'customers:pickup_day' %}" method="post">
     {% csrf_token %}
