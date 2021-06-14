@@ -9,7 +9,7 @@
 <h2>Hello {{ user.username }}!</h2>
 <br>
 <div class="container text-center">
-<h2> Please enter the period you want you're services suspended.</h2>
+<h2> Please enter the period you want your services suspended.</h2>
 <p>Your current period is set to {{customer.suspension_start}} through {{customer.suspension_end}}</p>
 <div class="container">
 <form action="{% url 'customers:suspend_pickup' %}" method="post">
